@@ -7,6 +7,7 @@
 """
 from typing import Union, List
 
+from ga.exception import IterStop
 from ga.lib import Iterable
 from ga.population import Population
 from ga.plugins import CodecPlugin, CmPlugin, \
@@ -70,6 +71,9 @@ class GA(Iterable):
             self.codec_plugin
         )
 
-        # 使用迭代控制器构建迭代切面
-        for _iter in self.iter_plugins:
-            _iter(self)
+        try:
+            # 使用迭代控制器构建迭代切面
+            for _iter in self.iter_plugins:
+                _iter(self)
+        except IterStop:
+            pass

@@ -4,3 +4,7 @@ class GaException(BaseException):
 
 class SelectorIsNone(GaException):
 	pass
+
+
+class IterStop(GaException):
+	pass
