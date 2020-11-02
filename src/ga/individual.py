@@ -8,6 +8,9 @@
 
 @createtime Mon, 12 Oct 2020 15:35:28 +0800
 """
+from typing import Union, List
+
+from ga.plugins import CodecPlugin
 from ga.genotype import Genotype
 from ga.phenotype import Phenotype
 
@@ -18,17 +21,9 @@ class Individual:
 
     fitness 计算环境适应度的数值
     """
-    codec_plugin = None
-
-    @property
-    def fitness(self):
-        """
-        @name fitness
-        @description 计算表现型的适应度，并返回适应度
-
-        @return number 适应度数值
-        """
-        return 0
+    codec_plugin: Union[None, List[CodecPlugin]] = None
+    _phenotype: Union[None, _phenotype] = None
+    _genotype: Union[None, _genotype] = None
 
     @property
     def genotype(self) -> Genotype:
@@ -38,6 +33,19 @@ class Individual:
 
         @return Genotype 基因型
         """
+        if self._genotype is not None:
+            return self._genotype
+
+        _genotype = None
+        for cp in self.codec_plugin:
+            _genotype = cp.encode(self._phenotype)
+
+        self._genotype = _genotype
+        return _genotype
+
+    @genotype.setter
+    def set_genotype(self, value: Genotype):
+        self._genotype = value
 
     @property
     def phenotype(self) -> Phenotype:
@@ -47,6 +55,19 @@ class Individual:
 
         @return Phenotype 表现型对象
         """
+        if self._phenotype is not None:
+            return self._phenotype
 
-    def use(self, codec_plugin):
+        _phenotype = None
+        for cp in self.codec_plugin[::-1]:
+            _phenotype = cp.decode(self._genotype)
+
+        self._phenotype = _phenotype
+        return _phenotype
+
+    @phenotype.setter
+    def set_phenotype(self, value: Phenotype):
+        self._phenotype = value
+
+    def use(self, codec_plugin: List[CodecPlugin]):
         self.codec_plugin = codec_plugin

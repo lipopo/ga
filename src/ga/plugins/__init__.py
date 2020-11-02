@@ -16,4 +16,4 @@ from ga.plugins.plugins import CodecPlugin, CmPlugin, \
 __all__ = (
     "CodecPlugin", "CmPlugin", "IterPlugin",
     "ParamPlugin", "GeneratePlugin"
-    )
+)
