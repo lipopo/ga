@@ -10,16 +10,10 @@
 class Genotype:
     _code = None
 
-    def mutate(self):
-        """
-        @name mutate
-        @description 变异
-        """
+    @property
+    def code(self):
+        return self._code
 
-    def cross(self, right):
-        """
-        @name cross
-        @description 交叉
-
-        @parameter right 隔壁基因型
-        """
+    @code.setter
+    def set_code(self, code):
+        self._code = code

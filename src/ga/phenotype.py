@@ -8,12 +8,15 @@
 
 
 class Phenotype:
-    feature = {}
+    """
+    表现型
+    """
+    _phenotype = None
 
     @property
-    def fitness(self):
-        """
-        @name fitness
-        @description 表现型的适应度
-        """
-        pass
+    def phenotype(self):
+        return self._phenotype
+
+    @phenotype.setter
+    def set_phenotype(self, value):
+        self._phenotype = value

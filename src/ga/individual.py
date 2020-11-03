@@ -45,7 +45,7 @@ class Individual:
 
     @genotype.setter
     def set_genotype(self, value: Genotype):
-        self._genotype = value
+        self._genotype = Genotype
 
     @property
     def phenotype(self) -> Phenotype:
@@ -71,3 +71,13 @@ class Individual:
 
     def use(self, codec_plugin: List[CodecPlugin]):
         self.codec_plugin = codec_plugin
+
+    def duplicate(self):
+        """
+        个体复制
+        """
+        instance = self.__class__()
+        instance.codec_plugin = self.codec_plugin
+        instance._phenotype = self._phenotype
+        instance._genotype = self._geotype
+        return instance
