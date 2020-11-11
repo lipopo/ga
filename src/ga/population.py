@@ -55,6 +55,7 @@ class Population:
     def use_selector(self, selector: Selector):
         """
         使用选择器
+
         :param selector: 环境选择器
         :return:
         """
@@ -70,6 +71,7 @@ class Population:
     ):
         """
         种群迭代
+
         :parameter codec_plugin 编解码插件
         """
         # 编解码器优化

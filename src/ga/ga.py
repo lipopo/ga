@@ -48,12 +48,12 @@ class GA(Iterable):
         if self.population is not None:
             self.population.use_selector(selector)
 
-    def __call__(
+    def setup_population(
         self,
         population: Union[Population, None] = None
     ):
         """
-        @description 配置基础参数
+        配置种群信息
 
         :param population 生成的种群
         """

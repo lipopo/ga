@@ -19,11 +19,11 @@ class Plugin:
 class CodecPlugin(Plugin):
     plugin_type = PluginType.Codec
 
-    def encode(self):
-        pass
+    def encode(self, phonetype):
+        return phonetype
 
-    def decode(self):
-        pass
+    def decode(self, genotype):
+        return genotype
 
 
 class CmPlugin(Plugin):
@@ -31,19 +31,17 @@ class CmPlugin(Plugin):
 
     def mutate(self, individual):
         """
-        @name mutate
-        @description 变异流程
+        变异流程
 
-        @parameter individual 个体
+        :param individual 个体
         """
         pass
 
     def crossover(self, individuals):
         """
-        @name crossover
-        @description 交叉
+        交叉
 
-        @parameter individuals 个体列表
+        :param individuals 个体列表
         """
         pass
 
@@ -53,7 +51,7 @@ class IterPlugin(Plugin):
 
     def __call__(self, ga):
         """
-        @description 挂载ga对象，执行迭代流程
+        挂载ga对象，执行迭代流程
         """
         # 进行下一步迭代流程
         self.ga = ga
@@ -78,8 +76,8 @@ class GeneratePlugin(Plugin):
 
     def generate(self):
         """
-        @description 返回生成的种群
+        返回生成的种群
 
-        @return Pupolation 种群
+        :return Pupolation 种群
         """
         pass

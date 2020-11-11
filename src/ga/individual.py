@@ -28,10 +28,9 @@ class Individual:
     @property
     def genotype(self) -> Genotype:
         """
-        @name genotype
-        @description 编码计算，并返回基因型对象
+        编码计算，并返回基因型对象
 
-        @return Genotype 基因型
+        :return Genotype 基因型
         """
         if self._genotype is not None:
             return self._genotype
@@ -44,16 +43,15 @@ class Individual:
         return _genotype
 
     @genotype.setter
-    def set_genotype(self, value: Genotype):
+    def set_genotype(self, value: Union[Genotype, None]):
         self._genotype = Genotype
 
     @property
     def phenotype(self) -> Phenotype:
         """
-        @name phenotype
-        @description 解码计算，并返回表现型对象
+        解码计算，并返回表现型对象
 
-        @return Phenotype 表现型对象
+        :return Phenotype 表现型对象
         """
         if self._phenotype is not None:
             return self._phenotype
@@ -66,7 +64,7 @@ class Individual:
         return _phenotype
 
     @phenotype.setter
-    def set_phenotype(self, value: Phenotype):
+    def set_phenotype(self, value: Union[Phenotype, None]):
         self._phenotype = value
 
     def use(self, codec_plugin: List[CodecPlugin]):
