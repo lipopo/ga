@@ -4,6 +4,7 @@
 @description 基础的GA对象
 
 @createtime Wed, 14 Oct 2020 15:35:22 +0800
+@updatetime Fri, 20 Nov 2020 14:47:22 +0800
 """
 from typing import Union, List
 
@@ -61,6 +62,7 @@ class GA(Iterable):
             # 基于种群生成器，生成种群
             population = self.generate_plugin.generate()
         self.population = population
+        self.population(self.cm_plugin)
 
     def next(self):
         """
