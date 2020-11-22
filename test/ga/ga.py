@@ -24,6 +24,9 @@ class FakePopulation:
     def iter_next(self, codec_plugin):
         self.codec_plugin = codec_plugin
 
+    def __call__(self, cm_plugin):
+        pass
+
 
 class FakeIterPlugin:
     ga = None

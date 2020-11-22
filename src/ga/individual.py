@@ -35,9 +35,9 @@ class Individual:
         if self._genotype is not None:
             return self._genotype
 
-        _genotype = None
+        _genotype = self._phenotype
         for cp in self.codec_plugin:
-            _genotype = cp.encode(self._phenotype)
+            _genotype = cp.encode(_genotype)
 
         self._genotype = _genotype
         return _genotype
@@ -56,9 +56,9 @@ class Individual:
         if self._phenotype is not None:
             return self._phenotype
 
-        _phenotype = None
+        _phenotype = self._genotype
         for cp in self.codec_plugin[::-1]:
-            _phenotype = cp.decode(self._genotype)
+            _phenotype = cp.decode(_phenotype)
 
         self._phenotype = _phenotype
         return _phenotype

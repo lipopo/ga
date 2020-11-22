@@ -1,6 +1,7 @@
-from test.ga import GaTestCase
+from test.ga import GaTestCase, PopulationTestCase, IndividualTestCase
 
 
 __all__ = (
-    "GaTestCase" ,
+    "GaTestCase" , "PopulationTestCase",
+    "IndividualTestCase"
 )
