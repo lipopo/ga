@@ -35,11 +35,11 @@ class CmPlugin(BaseCmPlugin):
         start_idx = max(randint(-size, code_length), 0)
         end_idx = min(start_idx + size, code_length)
 
-        code_seq1[start_idx: end_idx], code_seq2[start_idx: end_idx] =
+        code_seq1[start_idx: end_idx], code_seq2[start_idx: end_idx] = \
             code_seq2[start_idx: end_idx], code_seq1[start_idx: end_idx]
 
-        gen1.phenotype = None
-        gen2.phenotype = None
+        i1.phenotype = None
+        i2.phenotype = None
 
     def crossover(self, individuals):
         """
@@ -56,7 +56,8 @@ class CmPlugin(BaseCmPlugin):
         cross_pair = zip(cross_individuals[::2], cross_individuals[1::2])
 
         for i1, i2 in cross_pair:
-            i1, i2 = self.cross(i1, i2)
+            # 交叉每一对个体
+            self.cross(i1, i2)
 
     def mutate(self, individual: Individual):
         """
@@ -71,10 +72,10 @@ class CmPlugin(BaseCmPlugin):
         code_seq = genotype.code
         mutate_flag = False
 
-        for code_idx, code in code_seq:
-            if random() < self.murate_rate:
+        for code_idx, code in enumerate(code_seq):
+            if random() < self.mutate_rate:
                 mutate_flag = True  # 设定突变标志
-                code_seq[code_idx] = !code
+                code_seq[code_idx] = not code
 
         if mutate_flag:
             # 删除个体表现型
