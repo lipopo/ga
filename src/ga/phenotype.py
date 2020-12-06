@@ -11,6 +11,7 @@ class Phenotype:
     """
     表现型
     """
+    meta_info = None
     _phenotype = None
 
     @property

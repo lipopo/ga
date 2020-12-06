@@ -15,6 +15,12 @@ from ga.genotype import Genotype
 from ga.phenotype import Phenotype
 
 
+class IndividualMeta:
+    type_list = []
+    range_list = []
+    bit_count = []
+
+
 class Individual:
     """
     抽象的个体
@@ -22,8 +28,9 @@ class Individual:
     fitness 计算环境适应度的数值
     """
     codec_plugin: Union[None, List[CodecPlugin]] = None
-    _phenotype: Union[None, _phenotype] = None
-    _genotype: Union[None, _genotype] = None
+    _phenotype: Union[None, Phenotype] = None
+    _genotype: Union[None, Genotype] = None
+    _meta = None
 
     @property
     def genotype(self) -> Genotype:
@@ -37,7 +44,7 @@ class Individual:
 
         _genotype = self._phenotype
         for cp in self.codec_plugin:
-            _genotype = cp.encode(_genotype)
+            _genotype = cp.encode(_genotype, self.meta)
 
         self._genotype = _genotype
         return _genotype
@@ -58,7 +65,7 @@ class Individual:
 
         _phenotype = self._genotype
         for cp in self.codec_plugin[::-1]:
-            _phenotype = cp.decode(_phenotype)
+            _phenotype = cp.decode(_phenotype, self.meta)
 
         self._phenotype = _phenotype
         return _phenotype
@@ -66,6 +73,14 @@ class Individual:
     @phenotype.setter
     def set_phenotype(self, value: Union[Phenotype, None]):
         self._phenotype = value
+
+    @property
+    def meta(self):
+        return self._meta
+
+    @meta.setter
+    def set_meta(self, value):
+        self._meta = value
 
     def use(self, codec_plugin: List[CodecPlugin]):
         self.codec_plugin = codec_plugin
@@ -76,6 +91,7 @@ class Individual:
         """
         instance = self.__class__()
         instance.codec_plugin = self.codec_plugin
+        instance.meta = self.meta
         instance._phenotype = self._phenotype
         instance._genotype = self._geotype
         return instance
