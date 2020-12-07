@@ -19,5 +19,5 @@ class Phenotype:
         return self._phenotype
 
     @phenotype.setter
-    def set_phenotype(self, value):
+    def phenotype(self, value):
         self._phenotype = value

@@ -30,7 +30,7 @@ class Individual:
     codec_plugin: Union[None, List[CodecPlugin]] = None
     _phenotype: Union[None, Phenotype] = None
     _genotype: Union[None, Genotype] = None
-    _meta = None
+    _meta: Union[None, IndividualMeta] = None
 
     @property
     def genotype(self) -> Genotype:
@@ -50,8 +50,8 @@ class Individual:
         return _genotype
 
     @genotype.setter
-    def set_genotype(self, value: Union[Genotype, None]):
-        self._genotype = Genotype
+    def genotype(self, value: Union[Genotype, None]):
+        self._genotype = value
 
     @property
     def phenotype(self) -> Phenotype:
@@ -71,7 +71,7 @@ class Individual:
         return _phenotype
 
     @phenotype.setter
-    def set_phenotype(self, value: Union[Phenotype, None]):
+    def phenotype(self, value: Union[Phenotype, None]):
         self._phenotype = value
 
     @property
@@ -79,7 +79,7 @@ class Individual:
         return self._meta
 
     @meta.setter
-    def set_meta(self, value):
+    def meta(self, value):
         self._meta = value
 
     def use(self, codec_plugin: List[CodecPlugin]):
