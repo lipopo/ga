@@ -36,7 +36,7 @@ def run_simple_ga():
     ga.use_selector(selector)
 
     for idx, _ in enumerate(ga):
-        print(sum([i.phenotype.phenotype[0] for i in ga.population.individuals]) / len(ga.population.individuals))
+        pass
 
 
 if __name__ == "__main__":
