@@ -15,5 +15,5 @@ class Genotype:
         return self._code
 
     @code.setter
-    def set_code(self, code):
+    def code(self, code):
         self._code = code
