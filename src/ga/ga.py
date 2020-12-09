@@ -58,13 +58,13 @@ class GA(Iterable):
         """
         配置种群信息
 
-        :param population 生成的种群
+        :param population: 生成的种群
         """
         if population is None and self.generate_plugin is not None:
             # 基于种群生成器，生成种群
             population = self.generate_plugin.generate()
         self.population = population
-        self.population(self.cm_plugin)
+        self.population(self.cm_plugin, self.codec_plugin)
 
     def next(self):
         """

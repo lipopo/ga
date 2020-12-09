@@ -27,15 +27,18 @@ class Population:
 
     def __call__(
         self,
-        cm_plugin: CmPlugin
+        cm_plugin: CmPlugin,
+        codec_plugin: CodecPlugin
     ):
         self.cm_plugin = cm_plugin
+        self.codec_plugin = codec_plugin
+        self.bind()
 
     def cross(self):
         """
         种群内部交叉
         """
-        self.individuals = self.cm_plugin.crossover(self.individuals)
+        self.cm_plugin.crossover(self.individuals)
 
     def mutate(self):
         """

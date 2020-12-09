@@ -37,17 +37,19 @@ class Individual:
         """
         编码计算，并返回基因型对象
 
-        :return Genotype 基因型
+        :return Genotype: 基因型
         """
         if self._genotype is not None:
             return self._genotype
 
-        _genotype = self._phenotype
+        self._genotype = Genotype()
+        processed_phenotype = Phenotype()
+        processed_phenotype.phenotype = self._phenotype.phenotype
         for cp in self.codec_plugin:
-            _genotype = cp.encode(_genotype, self.meta)
+            processed_phenotype.phenotype = cp.encode(processed_phenotype, self.meta)
 
-        self._genotype = _genotype
-        return _genotype
+        self._genotype.code = processed_phenotype.phenotype
+        return self._genotype
 
     @genotype.setter
     def genotype(self, value: Union[Genotype, None]):
@@ -63,12 +65,14 @@ class Individual:
         if self._phenotype is not None:
             return self._phenotype
 
-        _phenotype = self._genotype
+        self._phenotype = Phenotype()
+        processed_genotype = Genotype()
+        processed_genotype.code = self._genotype.code
         for cp in self.codec_plugin[::-1]:
-            _phenotype = cp.decode(_phenotype, self.meta)
+            processed_genotype.code = cp.decode(processed_genotype, self.meta)
 
-        self._phenotype = _phenotype
-        return _phenotype
+        self._phenotype.phenotype = processed_genotype.code
+        return self._phenotype
 
     @phenotype.setter
     def phenotype(self, value: Union[Phenotype, None]):
@@ -92,6 +96,13 @@ class Individual:
         instance = self.__class__()
         instance.codec_plugin = self.codec_plugin
         instance.meta = self.meta
-        instance._phenotype = self._phenotype
-        instance._genotype = self._geotype
+
+        genotype = Genotype()
+        genotype.code = [i for i in self.genotype.code]
+        instance._genotype = genotype
+
+        phenotype = Phenotype()
+        phenotype.phenotype = [i for i in self.phenotype.phenotype]
+        instance._phenotype = phenotype
+
         return instance

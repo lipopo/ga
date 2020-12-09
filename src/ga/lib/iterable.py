@@ -6,6 +6,4 @@ class Iterable(object):
         return self
 
     def __next__(self):
-        _ = self.next()
-        if not _:
-            raise StopIteration
+        self.next()
