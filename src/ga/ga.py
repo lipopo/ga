@@ -17,6 +17,8 @@ from ga.selector import Selector
 
 
 class GA(Iterable):
+    population: Union[None, Population] = None
+
     def __init__(
         self,
         codec_plugin: Union[CodecPlugin, List[CodecPlugin]],
