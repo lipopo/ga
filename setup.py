@@ -6,7 +6,7 @@ with open("README.md", "rb") as f:
 
 
 setup(
-    name="GA",
+    name="GA-Common",
     version="0.1",
     author="lipo",
     author_email="lipo8081@gmail.com",
